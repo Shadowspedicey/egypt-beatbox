@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+	--color-primary: #2979FF;
+	--color-primary-dark: #0b47af;
+
+	--color-background-light: #f8f5f5;
+	--color-background-dark: #241E20;
+		
+	--color-surface-dark: #2F282A;
+	--color-surface-border: #453a3d;
+
+	--font-display: "Spline Sans", "Noto Sans", sans-serif;
+	--font-body: "Spline Sans", "Noto Sans", sans-serif;
+
+	--radius-default: 1rem;
+	--radius-lg: 2rem;
+	--radius-xl: 3rem;
+	--radius-full: 9999px;
+
+	--background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+
+	--animate-breathe: breathe 0.75s ease-in-out infinite
+}
+@keyframes breathe {
+	0%,
+	100% {
+		opacity: 100%;
+	}
+	50% {
+		opacity: 50%;
+	}
+}
