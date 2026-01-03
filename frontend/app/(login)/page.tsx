@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HeaderSection from "./_components/Header";
 import LoginForm from "./_components/LoginForm";
 import { Metadata } from "next";
@@ -39,7 +40,7 @@ export default async function Page() {
 				<div className="mt-auto pt-6 text-center">
 					<p className="text-sm text-gray-400">
 						Dont have an account yet?
-						<a className="font-bold text-primary hover:text-white transition-colors" href="#"> Sign up!</a>
+						<Link href="/signup" className="font-bold text-primary hover:text-white transition-colors"> Sign up!</Link>
 					</p>
 				</div>
 			</div>
