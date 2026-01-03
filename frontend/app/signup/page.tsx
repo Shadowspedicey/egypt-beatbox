@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Page() {
 	return (
 		<div>
-			<main className="flex min-h-[calc(100vh-73px)] flex-col-reverse lg:flex-row">
+			<main className="flex min-h-screen flex-col-reverse lg:flex-row">
 				<div className="relative w-full lg:w-5/12 xl:w-1/2 flex-none bg-[#181415] flex flex-col justify-end p-8 lg:p-12 overflow-hidden min-h-100">
 					<div className="absolute inset-0 z-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-40 mix-blend-overlay grayscale" data-alt="Abstract dynamic crowd at a music event" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuD2ryA_KQHkwXJkfv6f_Qr50oP9htFIZBKufXbDJkGD0JszWo834bk3WU-Jsh4oK9fXMo5YRVsUAsgMjuiEGYLIbiL35S6aenE5s_mpDEL9go4G088uEZtUq8rnStzRMCQp9wQ2ESyX6UBQOzlWfe487WT6_TKtTJg5k0JaL4LVM1yps05U75xknBx2CAjgWM0snNqvjP5bIThdcqhqUNW9FS0Z4DZQ3SYA-bOTP6O_6iiE858ElBZbq2nRade28VItvvTtBR5RhGwt')" }}></div>
 					<div className="absolute inset-0 z-0 bg-linear-to-t from-background-dark via-transparent to-background-dark/20"></div>
