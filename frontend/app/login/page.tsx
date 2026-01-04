@@ -49,6 +49,6 @@ export default async function Page() {
 }
 
 export const metadata: Metadata = {
-  title: "Egypt Beatbox | Login",
-  description: "Log in to your Egypt Beatbox Championship account to manage your profile, events, and competitions.",
+	title: "Login",
+	description: "Log in to your Egypt Beatbox Championship account to manage your profile, events, and competitions.",
 }

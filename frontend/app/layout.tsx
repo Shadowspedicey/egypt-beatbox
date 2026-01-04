@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Footer from "./_components/Footer";
 import "./globals.css";
 
@@ -21,3 +22,11 @@ export default function RootLayout({
 		</html>
 	)
 }
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Egypt Beatbox',
+    template: 'Egypt Beatbox | %s',
+  },
+  description: 'Welcome to the studio',
+};

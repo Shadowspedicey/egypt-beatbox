@@ -63,6 +63,6 @@ export default function Page() {
 }
 
 export const metadata: Metadata = {
-  title: 'Egypt Beatbox | Signup',
-  description: 'Sign up for Egypt Beatbox Championship and join Egypt’s official beatbox community. Compete, train, and connect with top beatboxers across Egypt.',
+	title: 'Signup',
+	description: 'Sign up for Egypt Beatbox Championship and join Egypt’s official beatbox community. Compete, train, and connect with top beatboxers across Egypt.',
 }
