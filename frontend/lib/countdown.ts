@@ -17,3 +17,5 @@ export function getCountdown() {
 		seconds: diff.seconds ?? 0
 	}
 } 
+
+export const initialCountdown: Countdown = {days: 0, hours: 0, minutes: 0, seconds: 0}

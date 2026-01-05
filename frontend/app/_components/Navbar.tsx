@@ -5,7 +5,6 @@ import { useState } from "react";
 import SidebarNavbar from "./SidebarNavbar";
 import Link from "next/link";
 import { paths } from "./paths";
-import Image from "next/image";
 import Logo from "./Logo";
 
 export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
@@ -14,7 +13,7 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 
 	return (
 		<>
-			<header className="fixed top-0 z-50 w-full border-b border-white/10 bg-background-dark/95 backdrop-blur-md">
+			<header className={`${path == paths.home ? "fixed" : "sticky"} top-0 z-50 w-full border-b border-white/10 bg-background-dark/95 backdrop-blur-md"`}>
 				<div className="px-6 md:px-10 py-4 flex items-center justify-around max-w-360 mx-auto">
 					<Link href={paths.home} className="relative flex h-10 w-20 items-center justify-center rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105">
 						<Logo />
