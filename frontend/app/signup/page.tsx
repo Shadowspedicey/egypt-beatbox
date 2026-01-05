@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import SignUpForm from "./_components/SignUpForm";
 import Link from "next/link";
+import { paths } from "../_components/paths";
 
 export default function Page() {
 	return (
@@ -52,7 +53,7 @@ export default function Page() {
 						<div className="mt-8 text-center">
 							<p className="text-gray-500 text-sm">
 								Already have an account?
-								<Link href="/" className="text-primary font-bold hover:underline transition-colors ml-1">Log In</Link>
+								<Link href={paths.login} className="text-primary font-bold hover:underline transition-colors ml-1">Log In</Link>
 							</p>
 						</div>
 					</div>
