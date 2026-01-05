@@ -1,25 +1,15 @@
 "use client";
 
-import { intervalToDuration } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
+import { Countdown, getCountdown } from "@/lib/countdown";
 import { useEffect, useState } from "react";
 
 export default function CountdownSection() {
 	const [countdown, setCountdown] = useState<Countdown>({days: 0, hours: 0, minutes: 0, seconds: 0});
-	function calculateCountdown() {
-		const eventDateInEgypt = toZonedTime("2026-01-06 16:40:00", "Africa/Cairo");
-		const diff = intervalToDuration({start: toZonedTime(new Date(), "Africa/Cairo"), end: eventDateInEgypt});
-		setCountdown({
-			days: diff.days ?? 0,
-			hours: diff.hours ?? 0,
-			minutes: diff.minutes ?? 0,
-			seconds: diff.seconds ?? 0
-		});
-	};
 
 	useEffect(() => {
-	const intervalId = setInterval(calculateCountdown, 1000);
-	console.log("ass");
+	const intervalId = setInterval(() => {
+		setCountdown(getCountdown())
+	}, 1000);
 
 	return () => {
 		clearInterval(intervalId);
@@ -67,11 +57,4 @@ export default function CountdownSection() {
 			</div>
 		</section>
 	)
-}
-
-interface Countdown {
-	days: number,
-	hours: number,
-	minutes: number,
-	seconds: number
 }
