@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { paths } from "./paths";
+import Logo from "./Logo";
 
 export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, path}: {isMenuOpen: boolean, setIsMenuOpen: (state: boolean) => void, isLoggedIn: boolean, path: string}) {
 	const selectedElementCss = "bg-primary/10 text-primary ring-1 ring-primary/20 transition hover:bg-primary/20";
@@ -9,8 +10,8 @@ export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, pa
 		{/* Drawer Header */}
 		<div className="flex items-center justify-between border-b border-[#364252] p-6">
 			<div className="flex items-center gap-3">
-				<div className="flex size-8 items-center justify-center rounded-full bg-primary text-white">
-					<span className="material-symbols-outlined text-lg">graphic_eq</span>
+				<div className="flex size-8 items-center justify-center rounded-full text-white">
+					<Logo />
 				</div>
 				<span className="text-lg font-bold tracking-tight text-white">EGYPT BEATBOX</span>
 			</div>

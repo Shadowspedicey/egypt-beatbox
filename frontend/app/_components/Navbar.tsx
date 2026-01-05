@@ -5,6 +5,8 @@ import { useState } from "react";
 import SidebarNavbar from "./SidebarNavbar";
 import Link from "next/link";
 import { paths } from "./paths";
+import Image from "next/image";
+import Logo from "./Logo";
 
 export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,19 +16,9 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 		<>
 			<header className="fixed top-0 z-50 w-full border-b border-white/10 bg-background-dark/95 backdrop-blur-md">
 				<div className="px-6 md:px-10 py-4 flex items-center justify-around max-w-360 mx-auto">
-					<div className="flex shrink-0 items-center gap-3 cursor-pointer group">
-						<div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-primary shadow-lg shadow-primary/20 transition-transform duration-300 group-hover:scale-105">
-							<span className="material-symbols-outlined text-white text-2xl">graphic_eq</span>
-						</div>
-						<div className="flex flex-col">
-							<span className="text-xl font-bold tracking-tight text-white leading-none">
-								EG <span className="text-primary">BBX</span>
-							</span>
-							<span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium">
-								Egypt Beatbox
-							</span>
-						</div>
-					</div>
+					<Link href={paths.home} className="relative flex h-10 w-20 items-center justify-center rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105">
+						<Logo />
+					</Link>
 
 					<nav className="max-md:hidden flex text-center z-20 flex-1 justify-center gap-8">
 						<Link href={paths.home} className={`text-gray-300 hover:text-primary transition-colors text-sm font-medium ${path === paths.home && "text-primary!"}`}>
@@ -80,7 +72,7 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 							}
 							<button
 								onClick={() => setIsMenuOpen(true)}
-								className="md:hidden text-white p-1 hover:text-primary transition-colors"
+								className="flex md:hidden text-white p-1 hover:text-primary transition-colors"
 							>
 								<span className="material-symbols-outlined">menu</span>
 							</button>
