@@ -12,7 +12,7 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 
 	return (
 		<>
-			<header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/95 backdrop-blur-md">
+			<header className="fixed top-0 z-50 w-full border-b border-white/10 bg-background-dark/95 backdrop-blur-md">
 				<div className="px-6 md:px-10 py-4 flex items-center justify-around max-w-360 mx-auto">
 					<div className="flex shrink-0 items-center gap-3 cursor-pointer group">
 						<div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-primary shadow-lg shadow-primary/20 transition-transform duration-300 group-hover:scale-105">
@@ -70,10 +70,10 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 									</button>
 								</>
 								: <>
-									<Link href={paths.login} className="flex w-full items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-white/10">
+									<Link href={paths.login} className="hidden sm:flex w-full items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-white/10">
 										Login
 									</Link>
-									<Link href={paths.signup} className="flex w-full items-center justify-center rounded-full bg-primary hover:bg-primary-dark px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/25 transition-transform active:scale-95">
+									<Link href={paths.signup} className="hidden sm:flex w-full items-center justify-center rounded-full bg-primary hover:bg-primary-dark px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/25 transition-transform active:scale-95">
 										Register
 									</Link>
 								</>
