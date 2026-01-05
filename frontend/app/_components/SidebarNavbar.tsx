@@ -46,8 +46,8 @@ export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, pa
 			}
 
 			{/* Navigation Links */}
-			<nav className="flex flex-1 flex-col gap-2">
-				<Link href={paths.tickets} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.home && selectedElementCss}`}>
+			<nav className="flex flex-1 flex-col gap-2" onClick={() => setIsMenuOpen(false)}>
+				<Link href={paths.home} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.home && selectedElementCss}`}>
 					<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.home && selectedElementSvgCss}`}>
 						home
 					</span>
@@ -63,14 +63,14 @@ export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, pa
 					<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.tickets && selectedElementSvgCss}`}>confirmation_number</span>
 					<span className="text-base font-bold">Tickets</span>
 				</Link>
-				<Link href={paths.tickets} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.venue && selectedElementCss}`}>
+				<Link href={paths.venue} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.venue && selectedElementCss}`}>
 					<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.venue && selectedElementSvgCss}`}>
 						stadium
 					</span>
 					<span className="text-base font-medium">Venue</span>
 				</Link>
 				{ isLoggedIn &&
-					<Link href={paths.tickets} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.myTickets && selectedElementCss}`}>
+					<Link href={paths.myTickets} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.myTickets && selectedElementCss}`}>
 						<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.myTickets && selectedElementSvgCss}`}>confirmation_number</span>
 						<span className="text-base font-bold">My Tickets</span>
 					</Link>
