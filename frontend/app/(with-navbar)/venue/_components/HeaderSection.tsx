@@ -21,10 +21,10 @@ export default function HeaderSection() {
 					Venue Information
 				</div>
 				<h1 className="mb-4 text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-					Vibe Studio
+					{venueData.name}
 				</h1>
 				<p className="mb-8 max-w-2xl text-lg text-gray-300 sm:text-xl">
-					7 Mossadak, Dokki, Giza
+					{venueData.area}
 				</p>
 				<div className="flex flex-col gap-4 sm:flex-row">
 					<a href={venueData.mapLink} className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-8 text-base font-bold text-white shadow-lg shadow-primary/20 transition-transform hover:scale-105 hover:bg-primary-dark">
