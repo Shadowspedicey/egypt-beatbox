@@ -30,8 +30,8 @@ export default function Page() {
 			<div className="bracket-scroll w-full overflow-x-auto pb-12 pt-4 pl-4 -ml-4">
 				<div className="min-w-325 flex justify-center items-stretch relative py-8 px-4">
 					<div className="w-72 flex flex-col justify-around py-10 gap-16 relative z-10">
-						<BattleCard index={1} contenders={[{name: "Shadow", imgSrc: "", won: false, votes: 3}, {name: "Shehab", imgSrc: "", won: true, votes: 2}]}/>
-						<BattleCard index={2} contenders={[{name: "Shadow", imgSrc: "", won: false, votes: 3}, {name: "Shehab", imgSrc: "", won: true, votes: 2}]}/>
+						<BattleCard index={1} contenders={[{name: "Shadow", imgSrc: undefined, won: false, votes: 3}, {name: "Shehab", imgSrc: undefined, won: true, votes: 2}]}/>
+						<BattleCard index={2} contenders={[{name: "Shadow", imgSrc: undefined, won: false, votes: 3}, {name: "Shehab", imgSrc: undefined, won: true, votes: 2}]}/>
 					</div>
 					<div className="w-20 relative">
 						<div className="absolute top-[25%] left-0 w-1/2 h-0.5 bg-primary shadow-[0_0_8px_rgba(41,121,255,0.6)]"></div>
@@ -67,8 +67,8 @@ export default function Page() {
 						<div className="absolute top-[50%] left-1/2 w-1/2 h-0.5 bg-border-color"></div>
 					</div>
 					<div className="w-72 flex flex-col justify-around py-10 gap-16 relative z-10">
-						<BattleCard index={3} contenders={[{name: "Shadow", imgSrc: "", won: false, votes: 3}, {name: "Shehab", imgSrc: "", won: true, votes: 2}]} reverse/>
-						<BattleCard index={4} contenders={[{name: "Shadow", imgSrc: "", won: false, votes: 3}, {name: "Shehab", imgSrc: "", won: true, votes: 2}]} reverse/>
+						<BattleCard index={3} contenders={[{name: "Shadow", imgSrc: undefined, won: false, votes: 3}, {name: "Shehab", imgSrc: undefined, won: true, votes: 2}]} reverse/>
+						<BattleCard index={4} contenders={[{name: "Shadow", imgSrc: undefined, won: false, votes: 3}, {name: "Shehab", imgSrc: undefined, won: true, votes: 2}]} reverse/>
 					</div>
 				</div>
 			</div>

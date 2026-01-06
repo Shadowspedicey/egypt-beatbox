@@ -44,15 +44,15 @@ export default function BattleCard(
 			<div className={`${withBorder ? "p-6 gap-6" : "p-4 gap-3"} flex flex-col`}>
 				{
 					contenders.sort(a => a.won ? -1 : 1).map((contender, i) =>
-					<>
+					<div key={index+i+contender.name}>
 						<ContenderCard
-							key={contender.name}
+							key={index+contender.name}
 							contender={contender}
 							fromBattle={fromBattleStartingFrom == undefined ? undefined : fromBattleStartingFrom+i} 
 							reverse={reverse}
 						/>
 						{i == 0 && withBorder && <div className="w-full flex items-center gap-4 opacity-10"><div className="h-px bg-white w-full"></div></div>}
-					</>)
+					</div>)
 				}
 			</div>
 		</div>
