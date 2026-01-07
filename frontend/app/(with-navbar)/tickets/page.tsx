@@ -1,9 +1,15 @@
+"use client";
+
 import { eventDateInEgypt } from "@/lib/countdown";
 import { format } from "date-fns";
 import CountdownSection from "./_components/CountdownSection";
 import Ticket from "./_components/Ticket";
 import { ITicket } from "./_components/Ticket";
 import CartItem, { ICartItem } from "./_components/CartItem";
+import { useState } from "react";
+import LoadingPage from "@/app/_components/LoadingPage";
+import PaymentInstructions from "./_components/PaymentInstructions";
+import IOrder from "./_components/IOrder";
 
 export default function Page() {
 	const tickets: ITicket[] = [
@@ -19,6 +25,23 @@ export default function Page() {
 		items: cartItems,
 		totalPrice: cartItems.reduce((sum,i) => sum + i.ticket.price * i.quantity, 0)
 	}
+
+	const [isLoading, setIsLoading] = useState(false);
+	const [order, setOrder] = useState<IOrder | null | undefined>();
+	const handleProcceedToPayment = async () => {
+		setIsLoading(true);
+		// TODO: Create order
+		await new Promise(resolve => setTimeout(resolve, 1000));
+		const orderId = 1234;
+		const totalPrice = 500;
+		setOrder({id: orderId, totalPrice});
+		setIsLoading(false);
+	}
+
+	if (isLoading)
+		return <LoadingPage />
+	if (order != null && order != undefined)
+		return <PaymentInstructions order={order} />
 	return (
 		<main className="grow w-full max-w-360 mx-auto px-4 md:px-10 py-8">
 			<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
@@ -69,7 +92,7 @@ export default function Page() {
 								<span className="text-2xl font-black text-primary">EGP {cart.totalPrice}</span>
 							</div>
 						</div>
-						<button className="w-full flex items-center justify-center gap-2 h-12 bg-primary hover:bg-primary-dark text-white rounded-full font-bold transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20">
+						<button onClick={handleProcceedToPayment} className="cursor-pointer w-full flex items-center justify-center gap-2 h-12 bg-primary hover:bg-primary-dark text-white rounded-full font-bold transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20">
 							Proceed to Payment
 							<span className="material-symbols-outlined text-sm">arrow_forward</span>
 						</button>
