@@ -14,12 +14,14 @@ export default async function Page() {
 	]
 
 	return (
-		<div className="relative flex min-h-screen w-full flex-row overflow-hidden">
-			<main className="flex-1 flex flex-col min-h-screen bg-background-dark lg:ml-72">
-				<div className="flex-1 px-4 py-6 md:p-8 lg:p-10 max-w-7xl mx-auto w-full flex flex-col gap-8">
+			<main className="flex-1 w-full max-w-350 mx-auto px-4 md:px-8 py-8 flex flex-col gap-8 lg:ml-72">
+				<nav className="flex items-center gap-2 text-sm text-gray-400">
+					<span className="text-primary font-medium">Dashboard</span>
+				</nav>
+				<div className="flex-1 overflow-y-auto custom-scrollbar">
 					<div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
 						<div className="flex flex-col gap-1">
-							<h2 className="text-3xl md:text-4xl font-black tracking-tight text-white uppercase">Overview</h2>
+							<h2 className="text-3xl font-black tracking-tight text-white uppercase">Overview</h2>
 							<p className="text-gray-400 font-medium">Real-time metrics for Egyptian Beatbox Championship 2026</p>
 						</div>
 						<div className="flex gap-3">
@@ -29,7 +31,7 @@ export default async function Page() {
 							</button>
 						</div>
 					</div>
-					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+					<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 my-5">
 						<div className=" bg-card-dark p-6 rounded-xl border border-white/5 flex flex-col justify-between min-h-35 lg:h-40 group hover:border-primary/50 shadow-lg shadow-black/20 transition-all">
 							<div className="flex justify-between items-start">
 								<div className="flex items-center justify-center bg-white/5 p-2 rounded-lg group-hover:bg-primary/20 transition-colors">
@@ -93,6 +95,5 @@ export default async function Page() {
 					</div>
 				</div>
 			</main>
-		</div>
 	);
 }

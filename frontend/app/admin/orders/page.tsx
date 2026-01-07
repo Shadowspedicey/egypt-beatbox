@@ -16,9 +16,9 @@ export default function Page() {
 				<span className="material-symbols-outlined text-[16px]">chevron_right</span>
 				<span className="text-primary font-medium">All Orders</span>
 			</nav>
-			<div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+			<div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
 				<div className="flex flex-col gap-2">
-					<h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">All Orders List</h1>
+					<h1 className="text-3xl font-black text-white tracking-tight">All Orders List</h1>
 					<p className="text-gray-400">Manage and view all ticket orders for Egyptian Beatbox Championship 2026</p>
 				</div>
 			</div>
