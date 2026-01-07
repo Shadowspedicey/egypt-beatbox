@@ -3,8 +3,6 @@ import OrderTransaction from "./_components/OrderTransaction";
 import IOrder from "./_components/IOrder";
 import Link from "next/link";
 import paths from "./_components/paths";
-import { isAdmin } from "@/lib/auth";
-import { redirect } from "next/navigation";
 
 export default async function Page() {
 	const totalTicketsSold = 1450;
@@ -15,8 +13,6 @@ export default async function Page() {
 		{id:1234, customerName:"Ahmed Khaled", date:new Date(), orderName:"Vip Ticket", status: OrderStatus.Used}
 	]
 
-	if (!(await isAdmin()))
-		redirect("/");
 	return (
 		<div className="relative flex min-h-screen w-full flex-row overflow-hidden">
 			<main className="flex-1 flex flex-col min-h-screen bg-background-dark lg:ml-72">
