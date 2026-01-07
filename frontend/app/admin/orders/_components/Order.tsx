@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import IOrder from "./IOrder";
 import { OrderStatus } from "@/lib/OrderStatus";
 import Ticket from "./Ticket";
+import Link from "next/link";
+import paths from "../../_components/paths";
 
 export default function Order({order}: {order: IOrder}) {
 	const paidCss = "bg-green-900/30 text-green-400 border border-green-500/20";
@@ -37,7 +39,7 @@ export default function Order({order}: {order: IOrder}) {
 						</span>
 					</div>
 					<div className="col-span-2 hidden md:flex justify-end items-center gap-3">
-						<button className="text-primary hover:text-white transition-colors text-sm font-semibold">View Details</button>
+						<Link href={`${paths.orders}/${order.id}`} className="text-primary hover:text-white transition-colors text-sm font-semibold">View Details</Link>
 						<div className="text-gray-400 group-open:rotate-180 transition-transform duration-300">
 							<span className="material-symbols-outlined">expand_more</span>
 						</div>
@@ -53,10 +55,10 @@ export default function Order({order}: {order: IOrder}) {
 						}
 					</div>
 					<div className="w-full md:w-64 flex flex-col gap-3 pt-2">
-						<a className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary-dark text-white font-bold py-2.5 px-4 rounded-lg transition-colors" href="#">
+						<Link href={`${paths.orders}/${order.id}`} className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary-dark text-white font-bold py-2.5 px-4 rounded-lg transition-colors">
 							<span>View Order Details</span>
 							<span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>
