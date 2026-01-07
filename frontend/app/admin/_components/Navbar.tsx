@@ -41,6 +41,10 @@ export default function Navbar() {
 								<span className="material-symbols-outlined group-hover:text-primary transition-colors">group</span>
 								<span className="font-medium text-sm">Users</span>
 							</Link>
+							<Link href={paths.scanner} className={`flex items-center gap-4 px-4 py-3 transition-colors group ${path == paths.scanner ? activeItemCss : nonActiveItemCss}`}>
+								<span className="material-symbols-outlined group-hover:text-primary transition-colors">qr_code</span>
+								<span className="font-medium text-sm">Scanner</span>
+							</Link>
 							<div className="h-px bg-white/10 my-2 mx-4"></div>
 							<Link href="/" className="flex items-center gap-4 px-4 py-3 text-gray-400 hover:bg-white/5 hover:text-white transition-colors group">
 								<span className="material-symbols-outlined group-hover:text-primary transition-colors">home</span>

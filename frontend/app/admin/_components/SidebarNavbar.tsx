@@ -42,6 +42,12 @@ export default function SidebarNavbar({ isMenuOpen, setIsMenuOpen, path }: { isM
 					</span>
 					<span className="text-base font-medium">Users</span>
 				</Link>
+				<Link href={paths.scanner} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.scanner && selectedElementCss}`}>
+					<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.scanner && selectedElementSvgCss}`}>
+						qr_code
+					</span>
+					<span className="text-base font-medium">Scanner</span>
+				</Link>
 				<div className="my-2 border-t border-[#364252]"></div>
 				<Link href="/" className="group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker">
 					<span className="material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl">
