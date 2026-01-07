@@ -6,3 +6,11 @@ export async function isSignedIn() {
 
 	return Boolean(token);
 }
+
+export async function isAdmin() {
+	await new Promise(resolve => setTimeout(resolve, 1500));
+	const isLoggedIn = await isSignedIn();
+	if (!isLoggedIn)
+		return false;
+	return true;
+}
