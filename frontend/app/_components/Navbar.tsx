@@ -7,7 +7,7 @@ import Link from "next/link";
 import { paths } from "./paths";
 import Logo from "./Logo";
 
-export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
+export default function Navbar({isLoggedIn, isAdmin} : {isLoggedIn: boolean, isAdmin: boolean}) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const path = usePathname();
 
@@ -35,6 +35,11 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 						{ isLoggedIn &&
 							<Link href={paths.myTickets} className={`text-gray-300 hover:text-primary transition-colors text-sm font-medium ${path === paths.myTickets && "text-primary!"}`}>
 								My Tickets
+							</Link>
+						}
+						{ isAdmin &&
+							<Link href={paths.admin} className={`text-gray-300 hover:text-primary transition-colors text-sm font-medium ${path === paths.admin && "text-primary!"}`}>
+								Admin Panel
 							</Link>
 						}
 					</nav>
@@ -87,7 +92,7 @@ export default function Navbar({isLoggedIn} : {isLoggedIn: boolean}) {
 					onClick={() => setIsMenuOpen(false)}
 				></div>
 			)}
-			<SidebarNavbar isLoggedIn={isLoggedIn} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} path={path}/>
+			<SidebarNavbar isLoggedIn={isLoggedIn} isAdmin={isAdmin} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} path={path}/>
 		</>
 	);
 }

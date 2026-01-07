@@ -5,5 +5,6 @@ export const paths = {
 	venue: "/venue",
 	myTickets: "/my-tickets",
 	login: "/login",
-	signup: "/signup"
+	signup: "/signup",
+	admin: "/admin"
 }

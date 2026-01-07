@@ -2,7 +2,7 @@ import Link from "next/link";
 import { paths } from "./paths";
 import Logo from "./Logo";
 
-export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, path}: {isMenuOpen: boolean, setIsMenuOpen: (state: boolean) => void, isLoggedIn: boolean, path: string}) {
+export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, isAdmin, path}: {isMenuOpen: boolean, setIsMenuOpen: (state: boolean) => void, isLoggedIn: boolean, isAdmin: boolean, path: string}) {
 	const selectedElementCss = "bg-primary/10 text-primary ring-1 ring-primary/20 transition hover:bg-primary/20";
 	const selectedElementSvgCss = "text-primary";
 
@@ -73,6 +73,12 @@ export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, pa
 					<Link href={paths.myTickets} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.myTickets && selectedElementCss}`}>
 						<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.myTickets && selectedElementSvgCss}`}>confirmation_number</span>
 						<span className="text-base font-bold">My Tickets</span>
+					</Link>
+				}
+				{ isAdmin &&
+					<Link href={paths.admin} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.admin && selectedElementCss}`}>
+						<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.admin && selectedElementSvgCss}`}>admin_panel_settings</span>
+						<span className="text-base font-bold">Admin Panel</span>
 					</Link>
 				}
 				{/* <div className="my-2 border-t border-[#364252]"></div>
