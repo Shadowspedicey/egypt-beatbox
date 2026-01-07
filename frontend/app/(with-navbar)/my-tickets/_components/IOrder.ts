@@ -1,10 +1,10 @@
 import { ITicket } from "./ITicket";
-import {ticketStatus} from "@/lib/TicketStatus";
+import {orderStatus} from "@/lib/OrderStatus";
 
 export default interface IOrder {
 	id: number,
 	date: Date,
 	totalPrice: number,
-	state: ticketStatus,
+	state: orderStatus,
 	items: ITicket[]
 }
