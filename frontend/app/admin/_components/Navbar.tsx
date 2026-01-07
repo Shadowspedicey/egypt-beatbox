@@ -16,7 +16,7 @@ export default function Navbar() {
 
 	return (
 		<div>
-			<aside className="hidden lg:flex w-72 flex-col border-r border-white/5 bg-[#1F191B] h-screen fixed left-0 top-0 z-50">
+			<aside className="hidden lg:flex w-72 flex-col border-r border-white/5 bg-[#1F191B] bottom-0 fixed left-0 top-0 z-50">
 				<div className="flex flex-col h-full p-6 justify-between">
 					<div>
 						<div className="flex items-center gap-4 mb-10 px-2">
