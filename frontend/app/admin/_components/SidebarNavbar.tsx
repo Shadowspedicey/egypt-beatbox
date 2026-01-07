@@ -33,7 +33,7 @@ export default function SidebarNavbar({ isMenuOpen, setIsMenuOpen, path }: { isM
 					<span className="text-base font-medium">Dashboard</span>
 				</Link>
 				<Link href={paths.orders} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.orders && selectedElementCss}`}>
-					<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path == paths.orders && selectedElementSvgCss}`}>confirmation_number</span>
+					<span className={`material-symbols-outlined text-gray-400 group-hover:text-primary fill-1 text-2xl ${path.startsWith(paths.orders) && selectedElementSvgCss}`}>confirmation_number</span>
 					<span className="text-base font-bold">Orders</span>
 				</Link>
 				<Link href={paths.users} className={`group flex items-center gap-4 text-gray-300 rounded-xl px-4 py-3 transition hover:bg-primary-darker ${path === paths.users && selectedElementCss}`}>

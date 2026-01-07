@@ -33,7 +33,7 @@ export default function Navbar() {
 								<span className="material-symbols-outlined group-hover:text-primary transition-colors filled">dashboard</span>
 								<span className="font-semibold text-sm">Dashboard</span>
 							</Link>
-							<Link href={paths.orders} className={`flex items-center gap-4 px-4 py-3 group ${path == paths.orders ? activeItemCss : nonActiveItemCss}`}>
+							<Link href={paths.orders} className={`flex items-center gap-4 px-4 py-3 group ${path.startsWith(paths.orders) ? activeItemCss : nonActiveItemCss}`}>
 								<span className="material-symbols-outlined group-hover:text-primary transition-colors">confirmation_number</span>
 								<span className="font-medium text-sm">Orders</span>
 							</Link>
