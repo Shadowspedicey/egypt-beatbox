@@ -184,6 +184,38 @@ namespace EgyptBeatbox.Api.Controllers.Orders
 			return result.ToActionResult();
 		}
 
+		/// <summary>
+		/// Gets an order. Admin only.
+		/// </summary>
+		/// <param name="orderId">Short 5-digit order id</param>
+		/// <returns>No content on success</returns>
+		/// <response code="200">Order retreived</response>
+		/// <response code="400">Invalid short id</response>
+		/// <response code="404">Order not found</response>
+		[HttpGet("{orderId}")]
+		[Authorize(Roles = "Admin")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(typeof(ProblemDetails), 400)]
+		[ProducesResponseType(typeof(ProblemDetails), 404)]
+		public async Task<IActionResult> GetOrder([FromRoute] string orderId)
+		{
+			if (string.IsNullOrWhiteSpace(orderId))
+				return BadRequest(CreateProblem(StatusCodes.Status400BadRequest, "Invalid orderId", "orderId is required."));
+
+			ShortId id;
+			try
+			{
+				id = new ShortId(orderId);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(CreateProblem(StatusCodes.Status400BadRequest, "Invalid orderId format", ex.Message));
+			}
+
+			var result = await _orderService.GetOrder(id);
+			return result.ToActionResult();
+		}
+
 		private static CustomerOrderDTO MapToCustomerDto(ViewOrderDTO dto)
 		{
 			return new CustomerOrderDTO(

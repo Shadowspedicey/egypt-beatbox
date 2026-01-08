@@ -42,6 +42,8 @@ namespace EgyptBeatbox.Application.Orders
 		public async Task<Result<IEnumerable<ViewOrderDTO>>> GetAllOrders()
 		{
 			IEnumerable<Order> orders = await _unitOfWork.Orders.GetAll();
+			foreach (var user in orders.Select(o => o.Customer).DistinctBy(c => c.Id))
+				await _userManager.LoadEmail(user);
 			var orderDtos = orders.OrderByDescending(o => o.CreatedAt).Select(o => o.ToViewOrderDTO());
 			return Result.Ok(orderDtos);
 		}
@@ -68,6 +70,16 @@ namespace EgyptBeatbox.Application.Orders
 			order.ConfirmOrder();
 			await _unitOfWork.SaveChanges();
 			return Result.Ok();
+		}
+
+		public async Task<Result<ViewOrderDTO>> GetOrder(ShortId orderId)
+		{
+			Order? order = await _unitOfWork.Orders.GetById(orderId);
+			if (order is null)
+				return Result.Fail(new NotFoundError<Order>("Order not found"));
+
+			await _userManager.LoadEmail(order.Customer);
+			return order.ToViewOrderDTO();
 		}
 	}
 }
