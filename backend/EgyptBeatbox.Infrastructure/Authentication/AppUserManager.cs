@@ -78,6 +78,7 @@ namespace EgyptBeatbox.Infrastructure.Authentication
 
 			AppUser appUser = new()
 			{
+				Id = Guid.NewGuid(),
 				Email = email.Value,
 				UserName = email.Value
 			};
@@ -89,11 +90,11 @@ namespace EgyptBeatbox.Infrastructure.Authentication
 				phoneNumber
 			);
 
-			await _dbContext.AddAsync(baseUser);
 			var result = await _userManager.CreateAsync(appUser, signupDto.Password);
 			if (!result.Succeeded)
 				return Result.Fail(result.Errors.Select(e => new ValidationError<AppUser>(e.Description)));
 
+			await _dbContext.AddAsync(baseUser);
 			await _userManager.AddToRoleAsync(appUser, "Customer");
 
 			return Result.Ok(await GetToken(appUser));
