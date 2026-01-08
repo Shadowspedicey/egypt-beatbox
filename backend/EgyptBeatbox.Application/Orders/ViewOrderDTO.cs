@@ -5,7 +5,6 @@
 		string CustomerName,
 		string CustomerEmail,
 		string CustomerPhoneNumber,
-		string PaidBy,
 		string Status,
 		decimal TotalPrice,
 		DateTime Date,

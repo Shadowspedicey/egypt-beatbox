@@ -9,7 +9,6 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 		public string Name => _items.Aggregate("", (name, item) => name + $"{item.Quantity}x {item.Name}");
 		public virtual User Customer { get; private set; }
 		public virtual IEnumerable<OrderItem> Items => _items;
-		public PhoneNumber PaidBy { get; set; }
 		private readonly IList<OrderItem> _items = [];
 		public virtual IEnumerable<UserTicket> UserTickets => _userTickets;
 		private readonly IList<UserTicket> _userTickets = [];
@@ -17,15 +16,14 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 		public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 		public Money TotalAmount => _items.Aggregate(Money.Zero(Currency.EGP), (sum, item) => sum + item.TotalPrice);
 		protected Order() { }
-		public Order(User customer, PhoneNumber paidBy, IEnumerable<OrderItem> items)
+		public Order(User customer, IEnumerable<OrderItem> items)
 		{
 			Id = ShortId.Generate();
 			Customer = customer;
 			foreach (var item in items)
 				_items.Add(item);
-			PaidBy = paidBy;
 		}
-		public Order(Cart cart, PhoneNumber paidBy)
+		public Order(Cart cart)
 		{
 			Id = ShortId.Generate();
 			Customer = cart.Customer;
@@ -33,7 +31,6 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 				_items.Add(new OrderItem(cart.Id, cartItem.Item.Id, cartItem.TotalPrice, cartItem.Quantity, cartItem.Item.Name));
 			foreach (var cartItem in cart.Items)
 				_userTickets.Add(new UserTicket(this, cartItem.Item));
-			PaidBy = paidBy;
 		}
 
 		public void ConfirmOrder()

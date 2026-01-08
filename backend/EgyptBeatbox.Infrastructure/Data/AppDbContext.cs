@@ -86,7 +86,6 @@ namespace EgyptBeatbox.Infrastructure.Data
 				});
 				O.HasMany(o => o.UserTickets).WithOne().IsRequired();
 				O.HasOne(o => o.Customer).WithMany(u => u.Orders).IsRequired();
-				O.Property(o => o.PaidBy).HasConversion(phone => phone.Number, number => new PhoneNumber(number)).HasMaxLength(11).IsRequired();
 				O.HasMany(o => o.UserTickets).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
 				O.Property(o => o.Status).HasConversion<string>().IsRequired().HasDefaultValue(OrderStatus.Pending);
 			});

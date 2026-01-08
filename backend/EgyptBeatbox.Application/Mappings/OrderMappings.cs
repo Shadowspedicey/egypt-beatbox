@@ -14,7 +14,6 @@ namespace EgyptBeatbox.Application.Mappings
 				order.Customer.FullName.ToString(),
 				order.Customer.Email.Value,
 				order.Customer.PhoneNumber.Number,
-				order.PaidBy.Number,
 				order.Status.ToString(),
 				order.TotalAmount.Amount,
 				order.CreatedAt,

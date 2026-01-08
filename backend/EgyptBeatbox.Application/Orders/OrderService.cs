@@ -12,13 +12,13 @@ namespace EgyptBeatbox.Application.Orders
 	{
 		private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-		public async Task<Result<ShortId>> CreateOrder(Guid customerId, PhoneNumber paidBy)
+		public async Task<Result<ShortId>> CreateOrder(Guid customerId)
 		{
 			User? user = await _unitOfWork.Users.GetById(customerId);
 			if (user is null)
 				return Result.Fail(new NotFoundError<User>("User not found"));
 
-			Order order = new(user.Cart, paidBy);
+			Order order = new(user.Cart);
 			await _unitOfWork.Orders.Add(order);
 			user.ClearCart();
 			await _unitOfWork.SaveChanges();
