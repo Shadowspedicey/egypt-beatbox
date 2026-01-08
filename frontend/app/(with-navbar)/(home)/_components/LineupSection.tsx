@@ -31,7 +31,7 @@ export default function LineupSection() {
 					</a>
 					<a href="https://www.instagram.com/shehab.elnasery/" target="_blank" className="group relative cursor-pointer lg:mt-16">
 						<div className="relative w-full aspect-3/4 overflow-hidden rounded-[2rem] bg-surface-dark shadow-2xl border border-white/5 group-hover:border-primary/50 transition-colors duration-500">
-							<Image fill alt="Portrait of Shehab" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" src="/artists/shehab.jfif" />
+							<Image fill alt="Portrait of Shehab" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" src="/artists/shehab.jpg" />
 							<div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-90"></div>
 							<div className="absolute bottom-0 left-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
 								<p className="text-primary text-xs font-bold tracking-widest uppercase mb-1">Giza</p>
