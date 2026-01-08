@@ -8,6 +8,7 @@ namespace EgyptBeatbox.Application.Mappings
 		public static ViewCartItemDTO ToViewCartItemDTO(this CartItem cartItem)
 		{
 			return new ViewCartItemDTO(
+				cartItem.Item.Id,
 				cartItem.Item.Name,
 				cartItem.Quantity,
 				cartItem.TotalPrice.Amount
