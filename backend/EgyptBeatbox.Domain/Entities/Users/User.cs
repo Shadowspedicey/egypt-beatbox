@@ -7,7 +7,7 @@ namespace EgyptBeatbox.Domain.Entities.Users
 	public class User : Entity<Guid>
 	{
 		public FullName FullName { get; private set; }
-		public EmailAddress Email { get; private set; }
+		public EmailAddress? Email { get; protected set; } = null;
 		public PhoneNumber PhoneNumber { get; private set; }
 		public virtual Cart Cart { get; private set; }
 		public virtual IEnumerable<Order> Orders => _orders;
@@ -36,6 +36,11 @@ namespace EgyptBeatbox.Domain.Entities.Users
 				Roles = roles;
 			else
 				throw new InvalidOperationException("User's roles are already set.");
+		}
+
+		public void SetEmail(EmailAddress email)
+		{
+			Email = email;
 		}
 
 		public void ClearRoles()
