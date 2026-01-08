@@ -50,7 +50,7 @@ namespace EgyptBeatbox.Application.Carts
 				return Result.Fail(new NotFoundError<Ticket>("Ticket not found."));
 
 			Cart cart = user.Cart;
-			cart.RemoveItem(new(cart, ticket, 1));
+			cart.DecrementItemQuantity(new(cart, ticket, 1));
 			await _unitOfWork.SaveChanges();
 			return Result.Ok(cart.ToViewCartDTO());
 		}

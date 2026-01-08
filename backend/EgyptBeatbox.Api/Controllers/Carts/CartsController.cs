@@ -77,7 +77,7 @@ namespace EgyptBeatbox.Api.Controllers.Carts
 		/// <response code="200">Item removed and cart returned</response>
 		/// <response code="400">Bad request / invalid ids</response>
 		/// <response code="404">Customer or product not found</response>
-		[HttpDelete("")]
+		[HttpPost("remove")]
 		[ProducesResponseType(typeof(ViewCartDTO), 200)]
 		[ProducesResponseType(typeof(ProblemDetails), 400)]
 		[ProducesResponseType(typeof(ProblemDetails), 404)]
