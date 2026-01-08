@@ -6,37 +6,59 @@ import CountdownSection from "./_components/CountdownSection";
 import Ticket from "./_components/Ticket";
 import { ITicket } from "./_components/Ticket";
 import CartItem, { ICartItem } from "./_components/CartItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingPage from "@/app/_components/LoadingPage";
 import PaymentInstructions from "./_components/PaymentInstructions";
 import IOrder from "./_components/IOrder";
+import api from "@/lib/api";
 
 export default function Page() {
-	const tickets: ITicket[] = [
-		{ id: 0, title: "Standard", tag: "General Entry", description: "Access to the main arena, standing area behind VIP section. Perfect for the true fans", price: 500, perks: ["perk 1", "perk 2"] }
-	]
-	const cartItems = [
-			{
-				ticket: tickets[0],
-				quantity: 2
-			}
-		]
-	const cart: ICart = {
-		items: cartItems,
-		totalPrice: cartItems.reduce((sum,i) => sum + i.ticket.price * i.quantity, 0)
-	}
-
 	const [isLoading, setIsLoading] = useState(false);
+	const [cart, setCart] = useState<ICart>({ items: [], totalPrice: 0 });
+	const [tickets, setTickets] = useState<ITicket[]>([]);
+
+	useEffect(() => {
+		async function loadCart() {
+			const cartResponse = await api.get("/carts");
+			console.log(cartResponse.data);
+			setCart(cartResponse.data);
+		};
+		async function loadTickets() {
+			const ticketsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/tickets`);
+			if (ticketsResponse.ok) {
+				setTickets(await ticketsResponse.json())
+			}
+		};
+		loadCart();
+		loadTickets();
+	}, []);
+
 	const [order, setOrder] = useState<IOrder | null | undefined>();
 	const handleProcceedToPayment = async () => {
 		setIsLoading(true);
-		// TODO: Create order
-		await new Promise(resolve => setTimeout(resolve, 1000));
-		const orderId = 1234;
-		const totalPrice = 500;
-		setOrder({id: orderId, totalPrice});
+		const totalPrice = cart.totalPrice;
+		const orderId = (await api.post("/orders")).data.orderId;
+		setOrder({ id: orderId, totalPrice });
 		setIsLoading(false);
 	}
+
+	const incrementQuantity = async (ticket: ITicket) => {
+		const response = await api.post("/carts",
+			{
+				productId: ticket.id
+			}
+		);
+		setCart(response.data);
+	};
+
+	const decrementQuantity = async (ticket: ITicket) => {
+		const response = await api.post("/carts/remove",
+			{
+				productId: ticket.id
+			}
+		);
+		setCart(response.data);
+	};
 
 	if (isLoading)
 		return <LoadingPage />
@@ -65,7 +87,7 @@ export default function Page() {
 					</div>
 					<div className="space-y-4">
 						{
-							tickets.map(ticket => <Ticket key={ticket.id} ticket={ticket} />)
+							tickets.map(ticket => <Ticket key={ticket.id} ticket={ticket} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} quantity={cart.items.find(ci => ci.id == ticket.id)?.quantity ?? 0}/>)
 						}
 					</div>
 				</div>
@@ -74,7 +96,7 @@ export default function Page() {
 						<h3 className="text-xl font-bold text-white mb-6 border-b border-surface-border pb-4">Order Summary</h3>
 						<div className="space-y-4 mb-6">
 							{
-								cart.items.map(ci => <CartItem key={ci.ticket.id} item={ci} />)
+								cart.items.map(ci => <CartItem key={ci.id} item={ci} />)
 							}
 						</div>
 						{/* <div className="border-t border-dashed border-surface-border my-4"></div> */}
