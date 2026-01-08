@@ -76,8 +76,9 @@ namespace EgyptBeatbox.Api.Controllers.Orders
 			if (isAdmin)
 			{
 				if (customerId is null || customerId == Guid.Empty)
-					return BadRequest(CreateProblem(StatusCodes.Status400BadRequest, "Missing customerId", "Admin must provide a valid customerId query parameter when fetching orders."));
-				targetCustomerId = customerId.Value;
+					targetCustomerId = User.GetUserId();
+				else
+					targetCustomerId = customerId.Value;
 			}
 			else
 			{

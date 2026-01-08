@@ -2,6 +2,7 @@
 {
 	public record ViewOrderDTO(
 		string Id,
+		string Name,
 		string CustomerName,
 		string CustomerEmail,
 		string CustomerPhoneNumber,

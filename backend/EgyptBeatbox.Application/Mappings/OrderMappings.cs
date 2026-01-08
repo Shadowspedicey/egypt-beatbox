@@ -11,6 +11,7 @@ namespace EgyptBeatbox.Application.Mappings
 			return new ViewOrderDTO
 			(
 				order.Id.Value,
+				order.Name,
 				order.Customer.FullName.ToString(),
 				order.Customer.Email.Value,
 				order.Customer.PhoneNumber.Number,
