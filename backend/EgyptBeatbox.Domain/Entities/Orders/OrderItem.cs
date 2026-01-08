@@ -6,9 +6,9 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 	{
 		public int CartId { get; }
 		public Guid TicketId { get; }
-		public string Name { get; set; }
-		public Money UnitPrice { get; }
-		public int Quantity { get; }
+		public string Name { get; protected set; }
+		public Money UnitPrice { get; protected set; }
+		public int Quantity { get; protected set; }
 		public Money TotalPrice => UnitPrice * Quantity;
 
 		protected OrderItem() { }

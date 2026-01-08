@@ -14,7 +14,7 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 		private readonly IList<UserTicket> _userTickets = [];
 		public OrderStatus Status { get; private set; } = OrderStatus.Pending;
 		public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-		public Money TotalAmount => _items.Aggregate(Money.Zero(Currency.EGP), (sum, item) => sum + item.TotalPrice);
+		public Money TotalAmount => Items.Aggregate(Money.Zero(Currency.EGP), (sum, item) => sum + item.TotalPrice);
 		protected Order() { }
 		public Order(User customer, IEnumerable<OrderItem> items)
 		{
@@ -28,9 +28,10 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 			Id = ShortId.Generate();
 			Customer = cart.Customer;
 			foreach (var cartItem in cart.Items)
-				_items.Add(new OrderItem(cart.Id, cartItem.Item.Id, cartItem.TotalPrice, cartItem.Quantity, cartItem.Item.Name));
+				_items.Add(new OrderItem(cart.Id, cartItem.Item.Id, cartItem.Item.Price , cartItem.Quantity, cartItem.Item.Name));
 			foreach (var cartItem in cart.Items)
-				_userTickets.Add(new UserTicket(this, cartItem.Item));
+				for (int i = 0; i < cartItem.Quantity; i++)
+					_userTickets.Add(new UserTicket(this, cartItem.Item));
 		}
 
 		public void ConfirmOrder()

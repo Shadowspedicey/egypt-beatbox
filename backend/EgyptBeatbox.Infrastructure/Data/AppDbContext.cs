@@ -81,7 +81,7 @@ namespace EgyptBeatbox.Infrastructure.Data
 				O.OwnsMany(o => o.Items, itemBuilder =>
 				{
 					itemBuilder.Property(i => i.Name).HasMaxLength(200).IsRequired();
-					itemBuilder.HasOne<Ticket>();
+					itemBuilder.HasOne<Ticket>().WithMany().HasForeignKey(oi => oi.TicketId);
 					itemBuilder.Property(i => i.UnitPrice).HasConversion(money => money.Amount, amount => new(amount, Currency.EGP)).IsRequired();
 				});
 				O.HasMany(o => o.UserTickets).WithOne().IsRequired();

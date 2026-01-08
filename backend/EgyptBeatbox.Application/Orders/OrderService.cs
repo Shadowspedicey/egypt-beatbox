@@ -22,6 +22,7 @@ namespace EgyptBeatbox.Application.Orders
 
 			Order order = new(user.Cart);
 			await _unitOfWork.Orders.Add(order);
+			await _unitOfWork.SaveChanges();
 			user.ClearCart();
 			await _unitOfWork.SaveChanges();
 			return Result.Ok(order.Id);
