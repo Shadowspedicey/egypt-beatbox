@@ -5,6 +5,6 @@ export default interface IOrder {
 	id: number,
 	date: Date,
 	totalPrice: number,
-	state: orderStatus,
+	status: orderStatus,
 	items: ITicket[]
 }

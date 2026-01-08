@@ -29,7 +29,6 @@ export default function Page() {
 			try {
 				setIsLoading(true);
 				const res = await api.get("/orders");
-				console.log(res.data);
 				setOrders(res.data);
 			} finally {
 				setIsLoading(false);
@@ -38,7 +37,7 @@ export default function Page() {
 	}, []);
 
 
-	const nActiveTickets = orders.filter(o => o.state == OrderStatus.Paid).map(o => o.items.length).reduce((a,sum,i) => a+sum,0);
+	const nActiveTickets = orders.filter(o => o.status == OrderStatus.Paid).map(o => o.items.length).reduce((a,sum) => a+sum,0);
 	const nTotalTickets = orders.length;
 
 	if (isLoading)

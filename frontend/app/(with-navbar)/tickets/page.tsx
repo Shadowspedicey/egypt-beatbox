@@ -20,7 +20,6 @@ export default function Page() {
 	useEffect(() => {
 		async function loadCart() {
 			const cartResponse = await api.get("/carts");
-			console.log(cartResponse.data);
 			setCart(cartResponse.data);
 		};
 		async function loadTickets() {
