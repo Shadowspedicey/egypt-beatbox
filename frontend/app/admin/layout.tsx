@@ -1,14 +1,34 @@
-import { isAdmin } from "@/lib/auth";
-import Navbar from "./_components/Navbar";
-import { redirect } from "next/navigation";
+"use client";
 
-export default async function AdminLayout({
-	children,
-}: {
-	children: React.ReactNode
-}) {
-	if (!(await isAdmin()))
-		redirect("/");
+import Navbar from "./_components/Navbar";
+import { useAuthContext } from "@/app/_components/AuthContext";
+import { isTokenAdmin } from "@/lib/auth";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import LoadingPage from "../_components/LoadingPage";
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+	const { accessToken } = useAuthContext();
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState<boolean | null>(null);
+
+	useEffect(() => {
+		(async () => {
+			setIsLoading(true);
+			if (!accessToken) {
+				router.replace("/");
+				return;
+			}
+			if (!isTokenAdmin(accessToken)) {
+				router.replace("/");
+				return;
+			}
+			setIsLoading(false);
+		})();
+	}, [accessToken, router]);
+
+	if (isLoading)
+		return <LoadingPage />
 	return (
 		<>
 			<Navbar />

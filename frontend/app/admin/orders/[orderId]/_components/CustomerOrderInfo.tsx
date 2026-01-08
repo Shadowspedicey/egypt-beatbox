@@ -13,19 +13,15 @@ export default function CustomerOrderInfo({order}: {order: IOrder}) {
 			<div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-6">
 				<div className="flex flex-col gap-1.5">
 					<span className="text-gray-400 text-xs uppercase tracking-wider font-semibold">Customer Name</span>
-					<p className="text-white text-base font-medium">{order.customer.name}</p>
+					<p className="text-white text-base font-medium">{order.customerName}</p>
 				</div>
 				<div className="flex flex-col gap-1.5">
 					<span className="text-gray-400 text-xs uppercase tracking-wider font-semibold">Email Address</span>
-					<p className="text-white text-base font-medium">{order.customer.emailAddress}</p>
+					<p className="text-white text-base font-medium">{order.customerEmail}</p>
 				</div>
 				<div className="flex flex-col gap-1.5">
 					<span className="text-gray-400 text-xs uppercase tracking-wider font-semibold">Phone Number</span>
-					<p className="text-white text-base font-medium">{order.customer.phoneNumber}</p>
-				</div>
-				<div className="flex flex-col gap-1.5">
-					<span className="text-gray-400 text-xs uppercase tracking-wider font-semibold">Paid by</span>
-					<p className="text-white text-base font-medium">{order.paidBy}</p>
+					<p className="text-white text-base font-medium">{order.customerPhoneNumber}</p>
 				</div>
 				<div className="flex flex-col gap-1.5">
 					<span className="text-gray-400 text-xs uppercase tracking-wider font-semibold">Purchase Date</span>

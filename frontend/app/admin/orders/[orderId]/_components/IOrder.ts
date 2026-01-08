@@ -6,7 +6,9 @@ export default interface IOrder {
 	id: number,
 	date: Date,
 	totalPrice: number,
-	customer: ICustomer,
+	customerName: string,
+	customerEmail: string,
+	customerPhoneNumber: string,
 	paidBy: string,
 	status: orderStatus,
 	items: ITicket[]

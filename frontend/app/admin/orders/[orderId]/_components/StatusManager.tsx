@@ -5,11 +5,12 @@ import IOrder from "./IOrder";
 import { useState } from "react";
 import { Slide, Snackbar } from "@mui/material";
 
-export default function StatusManager({order}: {order: IOrder}) {
+export default function StatusManager({order, confirmOrder}: {order: IOrder, confirmOrder: () => void}) {
 	const [status, setStatus] = useState(order.status);
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
 	const updateStatus = async () => {
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		if (status === OrderStatus.Paid)
+			confirmOrder();
 		setSnackbarOpen(true);
 	}
 

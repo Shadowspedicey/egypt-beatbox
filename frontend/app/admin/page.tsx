@@ -1,18 +1,33 @@
+"use client";
+
 import { OrderStatus } from "@/lib/OrderStatus";
 import OrderTransaction from "./_components/OrderTransaction";
 import IOrder from "./_components/IOrder";
 import Link from "next/link";
 import paths from "./_components/paths";
+import api from "@/lib/api";
+import { useEffect, useState } from "react";
+import LoadingPage from "../_components/LoadingPage";
 
-export default async function Page() {
-	const totalTicketsSold = 1450;
-	const totalRevenue = 24500;
-	const pendingApprovals = 125;
+export default function Page() {
+	const [dashboard, setDashboard] = useState<{totalTicketsSold: number, totalRevenue: number, pendingApprovals: number, recentOrders: IOrder[]}>({totalTicketsSold: 0, totalRevenue: 0, pendingApprovals: 0, recentOrders: []})
+	const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		(async () => {
+			const dashboardResponse = await api.get("/admin/dashboard");
+			setDashboard(dashboardResponse.data);
+			setIsLoading(false);
+		})();
+	}, []);
 
-	const orders: IOrder[] = [
-		{id:1234, customerName:"Ahmed Khaled", date:new Date(), orderName:"Vip Ticket", status: OrderStatus.Used}
-	]
+	const totalTicketsSold = dashboard.totalTicketsSold;
+	const totalRevenue = dashboard.totalRevenue;
+	const pendingApprovals = dashboard.pendingApprovals;
 
+	const orders: IOrder[] = dashboard.recentOrders;
+
+	if (isLoading)
+		return <LoadingPage />
 	return (
 			<main className="flex-1 w-full max-w-350 mx-auto px-4 md:px-8 py-8 flex flex-col gap-8 lg:ml-72">
 				<nav className="flex items-center gap-2 text-sm text-gray-400">

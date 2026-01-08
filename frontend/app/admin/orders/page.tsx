@@ -1,14 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import paths from "../_components/paths";
 import Order from "./_components/Order";
-import { OrderStatus } from "@/lib/OrderStatus";
 import IOrder from "./_components/IOrder";
+import { useEffect, useState } from "react";
+import LoadingPage from "@/app/_components/LoadingPage";
+import api from "@/lib/api";
 
 export default function Page() {
-	const orders: IOrder[] = [
-		{id:1234,customerName:"Ahmed Khaled", customerPhoneNumber:"0109856478941",date:new Date(), status: OrderStatus.Used, items:[{id:6789, name:"Standard Ticket", orderId:1234, price:500}],totalPrice:500}
-	]
+	const [orders, setOrders] = useState<IOrder[]>([]);
+	const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		(async () => {
+			const ordersResponse = await api.get("/orders/all");
+			setOrders(ordersResponse.data);
+			setIsLoading(false);
+		})();
+	}, []);
 
+	if (isLoading)
+			return <LoadingPage />
 	return (
 		<main className="flex-1 w-full max-w-350 mx-auto px-4 md:px-8 py-8 flex flex-col gap-8 lg:ml-72">
 			<nav className="flex items-center gap-2 text-sm text-gray-400">
