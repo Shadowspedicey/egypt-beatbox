@@ -12,9 +12,9 @@ namespace EgyptBeatbox.Application.Mappings
 				ticket.Id,
 				ticket.Name,
 				ticket.Description,
-				ticket.Tag.ToString(),
+				ticket.Tag.Name,
 				ticket.Price.Amount,
-				ticket.Perks.Select(p => p.ToString())
+				ticket.Perks.Select(p => p.Description)
 			);
 		}
 	}
