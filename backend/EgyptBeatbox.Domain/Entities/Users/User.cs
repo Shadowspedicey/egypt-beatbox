@@ -6,6 +6,7 @@ namespace EgyptBeatbox.Domain.Entities.Users
 {
 	public class User : Entity<Guid>
 	{
+		public Guid IdentityId { get; private set; }
 		public FullName FullName { get; private set; }
 		public EmailAddress? Email { get; protected set; } = null;
 		public PhoneNumber PhoneNumber { get; private set; }
@@ -16,12 +17,12 @@ namespace EgyptBeatbox.Domain.Entities.Users
 		public IEnumerable<UserTicket> UserTickets => Orders.SelectMany(o => o.UserTickets);
 		public DateTime CreatedAt { get; } = DateTime.UtcNow;
 		protected User() { }
-		public User(FullName fullName, EmailAddress email, PhoneNumber phoneNumber)
+		public User(Guid identityId, FullName fullName, EmailAddress email, PhoneNumber phoneNumber)
 		{
+			IdentityId = identityId;
 			Id = Guid.NewGuid();
 			Cart = new Cart(this);
 			FullName = fullName;
-			Email = email;
 			PhoneNumber = phoneNumber;
 		}
 

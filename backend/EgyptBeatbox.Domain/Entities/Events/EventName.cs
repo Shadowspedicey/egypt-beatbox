@@ -1,4 +1,4 @@
 ﻿namespace EgyptBeatbox.Domain.Entities.Events
 {
-	public readonly record struct EventName(string Name, int Year);
+	public record EventName(string Name, int Year);
 }

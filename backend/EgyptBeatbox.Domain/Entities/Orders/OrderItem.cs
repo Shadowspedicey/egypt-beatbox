@@ -11,6 +11,7 @@ namespace EgyptBeatbox.Domain.Entities.Orders
 		public int Quantity { get; }
 		public Money TotalPrice => UnitPrice * Quantity;
 
+		protected OrderItem() { }
 		public OrderItem(int cartId, Guid ticketId, Money unitPrice, int quantity, string name)
 		{
 			if (unitPrice.Amount <= 0)

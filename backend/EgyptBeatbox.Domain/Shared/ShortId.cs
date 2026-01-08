@@ -4,8 +4,10 @@
 	{
 		public string Value { get; }
 
-		private ShortId(string value)
+		public ShortId(string value)
 		{
+			if (value.Length != 5 || !int.TryParse(value, out _))
+				throw new ArgumentException("ShortId must be a 5-digit numeric string.", nameof(value));
 			Value = value;
 		}
 
