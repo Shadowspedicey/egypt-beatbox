@@ -11,11 +11,13 @@ import LoadingPage from "@/app/_components/LoadingPage";
 import PaymentInstructions from "./_components/PaymentInstructions";
 import IOrder from "./_components/IOrder";
 import api from "@/lib/api";
+import useAuth from "@/app/_components/useAuth";
 
 export default function Page() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [cart, setCart] = useState<ICart>({ items: [], totalPrice: 0 });
 	const [tickets, setTickets] = useState<ITicket[]>([]);
+	const { isLoggedIn } = useAuth();
 
 	useEffect(() => {
 		async function loadCart() {
@@ -30,11 +32,12 @@ export default function Page() {
 		};
 		(async () => {
 			setIsLoading(true);
-			await loadCart();
+			if (isLoggedIn)
+				await loadCart();
 			await loadTickets();
 			setIsLoading(false);
 		})()
-	}, []);
+	}, [isLoggedIn]);
 
 	const [order, setOrder] = useState<IOrder | null | undefined>();
 	const handleProcceedToPayment = async () => {

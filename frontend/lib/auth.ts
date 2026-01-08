@@ -39,8 +39,7 @@ export const clearAuth = () => {
 export const refreshAccessToken = async (): Promise<string> => {
 	if (typeof window === "undefined") throw new Error("No window");
 	const refresh = getRefreshTokenClient();
-	console.log(`ass ${new Date()} ${refresh}`);
-  if (!refresh) throw new Error("No refresh token");
+  if (!refresh) return "";
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
     method: "POST",
