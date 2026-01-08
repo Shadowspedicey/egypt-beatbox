@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Footer from "./_components/Footer";
 import "./globals.css";
+import { AuthProvider } from "./_components/AuthContext";
 
 export default function RootLayout({
 	children,
@@ -16,8 +17,10 @@ export default function RootLayout({
 				<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
 			</head>
 			<body className="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-x-hidden antialiased selection:bg-primary selection:text-white">
-				{children}
-				<Footer />
+				<AuthProvider>
+					{children}
+					<Footer />
+				</AuthProvider>
 			</body>
 		</html>
 	)

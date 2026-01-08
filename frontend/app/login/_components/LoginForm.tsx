@@ -2,19 +2,39 @@
 
 import LoadingPage from "@/app/loading";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/app/_components/AuthContext";
+import { setRefreshTokenClient } from "@/lib/auth";
 
 export default function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const router = useRouter();
+	const { setAccessToken } = useAuthContext();
 
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsLoading(true);
-		// TODO: Login
-		await new Promise(resolve => setTimeout(resolve, 5000));
-		setIsLoading(false);
+		try {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email, password }),
+				credentials: "omit",
+			});
+
+			if (!res.ok) throw new Error("Invalid credentials");
+			const data = await res.json();
+			setRefreshTokenClient(data.refreshToken);
+			setAccessToken(data.token ?? null);
+			router.push("/");
+		} catch (err) {
+			console.error(err);
+			alert("Login failed");
+			setIsLoading(false);
+		}
 	}
 
 	if (isLoading) return <LoadingPage />

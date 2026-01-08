@@ -1,18 +1,12 @@
-import { isAdmin, isSignedIn } from "@/lib/auth"
-import Navbar from "../_components/Navbar"
+"use client";
 
-export default async function LayoutWithNavbar({
-	children,
-}: {
-	children: React.ReactNode
-}) {
-	const isLoggedIn = await isSignedIn();
-	const isUserAdmin = await isAdmin();
+import Navbar from "../_components/Navbar";
 
+export default function LayoutWithNavbar({ children }: { children: React.ReactNode }) {
 	return (
 		<>
-			<Navbar isLoggedIn={isLoggedIn} isAdmin={isUserAdmin}/>
+			<Navbar />
 			{children}
 		</>
-	)
+	);
 }

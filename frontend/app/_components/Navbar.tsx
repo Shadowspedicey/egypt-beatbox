@@ -6,10 +6,16 @@ import SidebarNavbar from "./SidebarNavbar";
 import Link from "next/link";
 import { paths } from "./paths";
 import Logo from "./Logo";
+import { useAuthContext } from "./AuthContext";
+import { isTokenAdmin, getUserNameFromToken } from "@/lib/auth";
 
-export default function Navbar({isLoggedIn, isAdmin} : {isLoggedIn: boolean, isAdmin: boolean}) {
+export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const path = usePathname();
+	const { accessToken, logout, isLoggedIn } = useAuthContext();
+
+	const isAdmin = isTokenAdmin(accessToken);
+	const userName = getUserNameFromToken(accessToken) ?? "";
 
 	return (
 		<>
@@ -51,7 +57,7 @@ export default function Navbar({isLoggedIn, isAdmin} : {isLoggedIn: boolean, isA
 								? <>
 									<div className="flex items-center gap-3 group cursor-pointer">
 										<div className="text-right hidden lg:block">
-											<p className="text-white text-sm font-semibold leading-none">Ahmed K.</p>
+											<p className="text-white text-sm font-semibold leading-none">{userName || 'User'}</p>
 										</div>
 										<div
 											className="relative size-10 rounded-full bg-cover bg-center ring-2 ring-transparent group-hover:ring-primary/50 transition-all"
@@ -61,7 +67,7 @@ export default function Navbar({isLoggedIn, isAdmin} : {isLoggedIn: boolean, isA
 											}}
 										></div>
 									</div>
-									<button className="hidden sm:flex items-center justify-center h-10 px-6 rounded-full bg-primary hover:bg-[#00b8e6] text-white text-sm font-bold tracking-wide transition-all duration-300 shadow-lg shadow-primary/20">
+									<button onClick={() => logout()} className="hidden sm:flex items-center justify-center h-10 px-6 rounded-full bg-primary hover:bg-[#00b8e6] text-white text-sm font-bold tracking-wide transition-all duration-300 shadow-lg shadow-primary/20">
 										Logout
 									</button>
 								</>
