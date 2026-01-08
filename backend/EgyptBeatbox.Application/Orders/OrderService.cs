@@ -1,6 +1,7 @@
 ﻿using EgyptBeatbox.Application.Errors;
 using EgyptBeatbox.Application.Mappings;
 using EgyptBeatbox.Application.Repositories;
+using EgyptBeatbox.Application.Users;
 using EgyptBeatbox.Domain.Entities.Orders;
 using EgyptBeatbox.Domain.Entities.Users;
 using EgyptBeatbox.Domain.Shared;
@@ -8,9 +9,10 @@ using FluentResults;
 
 namespace EgyptBeatbox.Application.Orders
 {
-	public class OrderService(IUnitOfWork unitOfWork) : IOrderService
+	public class OrderService(IUnitOfWork unitOfWork, IUserManager userManager) : IOrderService
 	{
 		private readonly IUnitOfWork _unitOfWork = unitOfWork;
+		private readonly IUserManager _userManager = userManager;
 
 		public async Task<Result<ShortId>> CreateOrder(Guid customerId)
 		{
@@ -48,6 +50,8 @@ namespace EgyptBeatbox.Application.Orders
 			User? user = await _unitOfWork.Users.GetById(customerId);
 			if (user is null)
 				return Result.Fail(new NotFoundError<User>("User not found"));
+
+			await _userManager.LoadEmail(user);
 
 			IEnumerable<Order> orders = user.Orders;
 			var orderDtos = orders.OrderByDescending(o => o.CreatedAt).Select(o => o.ToViewOrderDTO());
