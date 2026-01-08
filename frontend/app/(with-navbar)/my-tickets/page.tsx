@@ -1,32 +1,48 @@
+"use client";
+
 import { eventDateInEgypt } from "@/lib/countdown";
 import { format } from "date-fns";
 import venue from "@/app/(with-navbar)/venue/_components/venue.json";
 import Order from "./_components/Order";
 import IOrder from "./_components/IOrder";
-import { isSignedIn } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { useAuthContext } from "@/app/_components/AuthContext";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { paths } from "@/app/_components/paths";
+import LoadingPage from "@/app/_components/LoadingPage";
+import api from "@/lib/api";
 import { OrderStatus } from "@/lib/OrderStatus";
 
-export default async function Page() {
-	const isLoggedIn = await isSignedIn();
+export default function Page() {
+	const { isLoggedIn } = useAuthContext();
+	const router = useRouter();
+	const [orders, setOrders] = useState<IOrder[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
-	const nActiveTickets = 2;
-	const nTotalTickets = 5;
-	const orders: IOrder[] = [
-		{
-			id: 1234,
-			date: new Date(),
-			totalPrice: 500,
-			state: OrderStatus.Pending,
-			items: [
-				{id:9876,name: "Standard", orderId:1234, qr:"iVBORw0KGgoAAAANSUhEUgAAAnsAAAJ7AQMAAACh+sXUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAGUExURQAAAP///6XZn90AAAAJcEhZcwAADsMAAA7DAcdvqGQAAAN5SURBVHja7dtLktowEIDhpliw5Ag6yhxtOBpH0RFYsqDSCbLbaskuajI2icb6exOC8Vd61XTpJQvxqb9ETjrFXSQ8/32InFWvz58c04OrfC32DQZKCLhHkIENuNtOOaqPWIAXq0kG/0T6arCLd+9DlQHXgUKVaUN6mSpTwreW8CaTbaApky05XEZNH1McfAkbBgMlpIQMbEpICRnYC6BU88jH2hLuE5T+SthhlRnYDGyGza6HjdpDA2OhuCXTL5bw+6A0D4b+QKGEjEOqDPije9lFnUZdTGk0xd+uwX4TDIDtgQLYQacwbABbGTazcKluOesVCbCMsDUogO2Bob8SdghKf1WmDXsAqzyodUadpnDPfb1pUvjiHe0PjM2DtOF6UOnl1SBVbhDsspdTnN3nPGN080gHfuQznDp+G6WO7cBACQHpFNoQcPghbbhhG9qcMIzXFewIi+aV0IXNPBcHK8S2oDYPxv5KCMjA3mUJATsCh7BvljcKXRp1YFbyaZZNQQEEbABkYAMyDvfShnVKDOP7d/H39WKRO9MPzK4LAbgWpFNoQzplH71MCaXFYZPCHfCMRe685HRroCk1OH3cFlRKSAmpMp3yT6rcIag9VtkeWoRCsUOhWuwOWlzzOynGyeOmoADSKQ1UGRAQcFegi5iVKGWUNwVvshSAgICAgIBbgo/5aZaDvXXxNxdmtjvYMqVHQEBAQMDxjzIlbBJ0UT18xrhdN/7P3VyQVyucgICAgICALYJ2NFPE2aXiznq6DcB6VVTGNAoICAgICNgsWD+0OGkV9uAjf3WVMgsvbhQCAgICAgK2Ber8ZIrO9wzLfOs+2uQREBAQELBnUH4AaOFWQt2SaXFzQeslUxfVZY3twNgfqM2DdEoPVaYNG6wyfxy2qLIuRblReMqNc64/5iM1snQ8Zj0Ymwe1P5BOabDKtCHgLsE3jMOFmOfYIaarEAYWh0J1nC9vDApgB2DoDxRAQMD/BZb3+uLi5LG8CmHXJ1I8ZudoAAEBAQEBWwbteMwxg0N8VudDXyyZ5h1FQEBAQEDAN4Jqqc4ns2ecx2MvR7NTpEnh4VXWAwQEBAQEbByUvNipz9xZKrfiEoPm1AsICAgICNg06CIWE0H30XbwLNwKpxQTTkBAQEBAwHbBWZii1c2F4dWPrNQxLpkCAgICAgK2CGr8Dba6XdLhZAoyAAAAAElFTkSuQmCC"}
-			]
-		}
-	];
+	useEffect(() => {
+		if (!isLoggedIn)
+			router.replace(paths.login);
+	}, [isLoggedIn, router]);
 
-	if (!isLoggedIn)
-		redirect(paths.login);
+	useEffect(() => {
+		(async () => {
+			try {
+				setIsLoading(true);
+				const res = await api.get("/orders");
+				console.log(res.data);
+				setOrders(res.data);
+			} finally {
+				setIsLoading(false);
+			}
+		})();
+	}, []);
+
+
+	const nActiveTickets = orders.filter(o => o.state == OrderStatus.Paid).map(o => o.items.length).reduce((a,sum,i) => a+sum,0);
+	const nTotalTickets = orders.length;
+
+	if (isLoading)
+		return <LoadingPage />
 	return (
 		<div className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-10 py-10">
 			<div className="flex flex-col lg:flex-row gap-8 lg:items-end justify-between mb-12">

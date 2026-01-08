@@ -29,8 +29,12 @@ export default function Page() {
 				setTickets(await ticketsResponse.json())
 			}
 		};
-		loadCart();
-		loadTickets();
+		(async () => {
+			setIsLoading(true);
+			await loadCart();
+			await loadTickets();
+			setIsLoading(false);
+		})()
 	}, []);
 
 	const [order, setOrder] = useState<IOrder | null | undefined>();
