@@ -4,6 +4,7 @@ using EgyptBeatbox.Domain.Entities.Orders;
 using EgyptBeatbox.Domain.Entities.Tickets;
 using EgyptBeatbox.Domain.Entities.Users;
 using EgyptBeatbox.Domain.Shared;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,14 @@ namespace EgyptBeatbox.Infrastructure.Data
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
+
+			builder.Entity<AppUser>(AU =>
+				AU.HasMany(au => au.Roles).WithMany().UsingEntity<IdentityUserRole<Guid>>(UR =>
+				{
+					UR.HasOne<AppUser>().WithMany().HasForeignKey(ur => ur.UserId);
+					UR.HasOne<AppRole>().WithMany().HasForeignKey(ur => ur.RoleId);
+				})
+			);
 
 			builder.Entity<AppRole>(R =>
 			{
