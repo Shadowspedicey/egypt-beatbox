@@ -161,6 +161,9 @@ namespace EgyptBeatbox.Infrastructure.Authentication
 			foreach (var claim in GetUserClaims(user))
 				claims.Add(claim);
 
+			string userFullName = await _dbContext.BaseUsers.AsNoTracking().Where(u => u.Id == baseUserId).Select(u => u.FullName.ToString()).FirstAsync();
+			claims.Add(new("name", userFullName));
+
 			IEnumerable<Role> roles = user.Roles.Select(r => (Role)r);
 
 			foreach (var role in roles)
