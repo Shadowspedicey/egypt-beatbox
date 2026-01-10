@@ -53,41 +53,41 @@ export default function SignUpForm() {
 	return (
 		<form className="flex flex-col gap-5" onSubmit={onSubmit}>
 			<div className="flex flex-col sm:flex-row gap-5">
-				<label className="flex flex-col flex-1 group">
+				<label className="flex flex-col flex-1 group" htmlFor="first-name">
 					<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">First Name</span>
-					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 px-5 text-base transition-colors" placeholder="Enter first name" type="text" value={firstName} onChange={e => setFirstName(e.currentTarget.value)} />
+					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 px-5 text-base transition-colors" placeholder="Enter first name" type="text" id="first-name" value={firstName} onChange={e => setFirstName(e.currentTarget.value)} />
 				</label>
-				<label className="flex flex-col flex-1 group">
+				<label className="flex flex-col flex-1 group" htmlFor="last-name">
 					<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">Last Name</span>
-					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 px-5 text-base transition-colors" placeholder="Enter last name" type="text" value={lastName} onChange={e => setLastName(e.currentTarget.value)} />
+					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 px-5 text-base transition-colors" placeholder="Enter last name" type="text" id="last-name" value={lastName} onChange={e => setLastName(e.currentTarget.value)} />
 				</label>
 			</div>
-			<label className="flex flex-col group">
+			<label className="flex flex-col group" htmlFor="email">
 				<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">Email Address</span>
 				<div className="relative">
-					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="name@example.com" type="email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
+					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="name@example.com" type="email" id="email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
 					<span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px] group-focus-within:text-primary transition-colors">mail</span>
 				</div>
 			</label>
-			<label className="flex flex-col group">
+			<label className="flex flex-col group" htmlFor="phone-number">
 				<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">Phone Number</span>
 				<div className="relative">
-					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="01000000000" type="text" value={phoneNumber} onChange={e => setPhoneNumber(e.currentTarget.value)} />
+					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="01000000000" type="text" id="phone-number" value={phoneNumber} onChange={e => setPhoneNumber(e.currentTarget.value)} />
 					<span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px] group-focus-within:text-primary transition-colors">phone</span>
 				</div>
 			</label>
 			<div className="flex flex-col sm:flex-row gap-5">
-				<label className="flex flex-col flex-1 group">
+				<label className="flex flex-col flex-1 group" htmlFor="password">
 					<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">Password</span>
 					<div className="relative">
-						<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="8+ characters" type="password" value={password} onChange={e => setPassword(e.currentTarget.value)} />
+						<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="8+ characters" type="password" id="password" autoComplete="new-password" value={password} onChange={e => setPassword(e.currentTarget.value)} />
 						<span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px] group-focus-within:text-primary transition-colors">lock</span>
 					</div>
 				</label>
-				<label className="flex flex-col flex-1 group">
+				<label className="flex flex-col flex-1 group" htmlFor="confirm-password">
 					<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">Confirm Password</span>
 					<div className="relative">
-						<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="Repeat password" type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.currentTarget.value)} />
+						<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="Repeat password" type="password" id="confirm-password" autoComplete="new-password" value={confirmPassword} onChange={e => setConfirmPassword(e.currentTarget.value)} />
 						<span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px] group-focus-within:text-primary transition-colors">lock_reset</span>
 					</div>
 				</label>

@@ -39,16 +39,16 @@ export default function LoginForm() {
 	}
 
 	return <form className="flex flex-col gap-5" onSubmit={onSubmit}>
-		<label className="group flex flex-col gap-2">
+		<label className="group flex flex-col gap-2" htmlFor="email">
 			<p className="text-white/90 text-sm font-semibold ml-1">Email</p>
 			<div className="relative transition-all group-focus-within:scale-[1.01]">
 				<div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
 					<span className="material-symbols-outlined text-gray-500 group-focus-within:text-primary transition-colors text-[20px]">mail</span>
 				</div>
-				<input className="w-full h-14 bg-surface-dark border border-surface-border rounded-xl px-11 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium" placeholder="name@example.com" type="email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
+				<input className="w-full h-14 bg-surface-dark border border-surface-border rounded-xl px-11 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium" placeholder="name@example.com" type="email" id="email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
 			</div>
 		</label>
-		<label className="group flex flex-col gap-2">
+		<label className="group flex flex-col gap-2" htmlFor="password">
 			<div className="flex justify-between items-center ml-1">
 				<p className="text-white/90 text-sm font-semibold">Password</p>
 				<a className="text-xs font-semibold text-gray-400 hover:text-primary! transition-colors" href="#">Forgot?</a>
@@ -57,7 +57,7 @@ export default function LoginForm() {
 				<div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
 					<span className="material-symbols-outlined text-gray-500 group-focus-within:text-primary transition-colors text-[20px]">lock</span>
 				</div>
-				<input className="w-full h-14 bg-surface-dark border border-surface-border rounded-xl px-11 pr-12 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium" placeholder="••••••••" type={isPasswordVisible ? "text" : "password"} value={password} onChange={e => setPassword(e.currentTarget.value)} />
+				<input className="w-full h-14 bg-surface-dark border border-surface-border rounded-xl px-11 pr-12 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-medium" placeholder="••••••••" type={isPasswordVisible ? "text" : "password"} id="password" value={password} onChange={e => setPassword(e.currentTarget.value)} />
 				<button className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-black transition-colors" type="button" onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
 					<span className="material-symbols-outlined text-[20px]">visibility</span>
 				</button>
