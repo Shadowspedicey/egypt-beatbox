@@ -1,23 +1,52 @@
 "use client";
 
+import { useAuthContext } from "@/app/_components/AuthContext";
 import { useLoading } from "@/app/_components/LoadingContext";
+import { setRefreshTokenClient } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 export default function SignUpForm() {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 
+	const { setAccessToken } = useAuthContext();
 	const { setIsLoading } = useLoading();
+	const router = useRouter();
 
 	const onSubmit = async (e: FormEvent) => {
-		e.stopPropagation();
+		e.preventDefault();
 		setIsLoading(true);
-		// TODO: validation
-		// TODO: sign up logic
-		await new Promise(resolve => setTimeout(resolve, 5000));
+		if (password != confirmPassword)
+			return alert("Passwords don't match.");
+		try {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					firstName,
+					lastName,
+					email,
+					phoneNumber,
+					password,
+				}),
+				credentials: "omit",
+			});
+
+			if (!res.ok) throw new Error(await res.json());
+			const data = await res.json();
+			setRefreshTokenClient(data.refreshToken);
+			setAccessToken(data.token ?? null);
+			router.push("/");
+			await new Promise(resolve => setTimeout(resolve, 1000));
+		} catch (err) {
+			console.error(err);
+			alert("Signup failed");
+		}
 		setIsLoading(false);
 	};
 
@@ -38,6 +67,13 @@ export default function SignUpForm() {
 				<div className="relative">
 					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="name@example.com" type="email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
 					<span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px] group-focus-within:text-primary transition-colors">mail</span>
+				</div>
+			</label>
+			<label className="flex flex-col group">
+				<span className="text-white text-sm font-medium leading-normal pb-2 ml-1 group-focus-within:text-primary transition-colors">Phone Number</span>
+				<div className="relative">
+					<input className="form-input w-full rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/30 border border-surface-border bg-surface-dark focus:border-primary h-12 placeholder:text-white/40 pl-11 pr-5 text-base transition-colors" placeholder="01000000000" type="text" value={phoneNumber} onChange={e => setPhoneNumber(e.currentTarget.value)} />
+					<span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px] group-focus-within:text-primary transition-colors">phone</span>
 				</div>
 			</label>
 			<div className="flex flex-col sm:flex-row gap-5">
