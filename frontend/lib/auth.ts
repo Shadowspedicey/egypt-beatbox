@@ -39,7 +39,7 @@ export const clearAuth = () => {
 export const refreshAccessToken = async (): Promise<string> => {
 	if (typeof window === "undefined") throw new Error("No window");
 	const refresh = getRefreshTokenClient();
-  if (!refresh) return "";
+  // if (!refresh) refresh = "";
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
     method: "POST",
@@ -47,12 +47,10 @@ export const refreshAccessToken = async (): Promise<string> => {
     body: JSON.stringify({ refreshToken: refresh }),
     credentials: "omit",
   });
-
   if (!res.ok) {
     // If backend returns 401 or other, clear stored tokens
-	console.log(refresh);
     clearAuth();
-    throw new Error("refresh failed");
+    throw new Error(`Refresh failed: ${res.status}`);
   }
 
   const data = await res.json();

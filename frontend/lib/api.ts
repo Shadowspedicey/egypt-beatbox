@@ -7,9 +7,7 @@ const api = axios.create({
 
 // Attach access token
 api.interceptors.request.use(async (config) => {
-  let token = getAccessToken();
-  if (!token)
-	  token = await refreshAccessToken();
+  const token = getAccessToken();
   if (token) {
     config.headers = { ...(config.headers as AxiosRequestHeaders || {}), Authorization: `Bearer ${token}` } as AxiosRequestHeaders;
   }
@@ -29,10 +27,8 @@ api.interceptors.response.use(
   (res) => res,
   async (error) => {
     const original = error.config;
-
     if (error.response?.status === 401 && !original._retry) {
-      // TODO
-      logout();
+      
       if (isRefreshing) {
         return new Promise<string>((resolve, reject) => {
           failedQueue.push({ resolve, reject });
