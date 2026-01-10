@@ -1,16 +1,16 @@
 "use client";
 
-import LoadingPage from "@/app/loading";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/app/_components/AuthContext";
 import { setRefreshTokenClient } from "@/lib/auth";
+import { useLoading } from "@/app/_components/LoadingContext";
 
 export default function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const { setIsLoading } = useLoading();
 	const router = useRouter();
 	const { setAccessToken } = useAuthContext();
 
@@ -35,10 +35,10 @@ export default function LoginForm() {
 			alert("Login failed");
 			setIsLoading(false);
 		}
+		setIsLoading(false);
 	}
 
-	if (isLoading) return <LoadingPage />
-	else return <form className="flex flex-col gap-5" onSubmit={onSubmit}>
+	return <form className="flex flex-col gap-5" onSubmit={onSubmit}>
 		<label className="group flex flex-col gap-2">
 			<p className="text-white/90 text-sm font-semibold ml-1">Email</p>
 			<div className="relative transition-all group-focus-within:scale-[1.01]">

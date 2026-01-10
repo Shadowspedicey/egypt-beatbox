@@ -7,17 +7,17 @@ import Ticket from "./_components/Ticket";
 import { ITicket } from "./_components/Ticket";
 import CartItem, { ICartItem } from "./_components/CartItem";
 import { useEffect, useState } from "react";
-import LoadingPage from "@/app/_components/LoadingPage";
 import PaymentInstructions from "./_components/PaymentInstructions";
 import IOrder from "./_components/IOrder";
 import api from "@/lib/api";
 import useAuth from "@/app/_components/useAuth";
+import { useLoading } from "@/app/_components/LoadingContext";
 
 export default function Page() {
-	const [isLoading, setIsLoading] = useState(false);
 	const [cart, setCart] = useState<ICart>({ items: [], totalPrice: 0 });
 	const [tickets, setTickets] = useState<ITicket[]>([]);
 	const { isLoggedIn } = useAuth();
+	const { setIsLoading } = useLoading();
 
 	useEffect(() => {
 		async function loadCart() {
@@ -37,7 +37,7 @@ export default function Page() {
 			await loadTickets();
 			setIsLoading(false);
 		})()
-	}, [isLoggedIn]);
+	}, [isLoggedIn, setIsLoading]);
 
 	const [order, setOrder] = useState<IOrder | null | undefined>();
 	const handleProcceedToPayment = async () => {
@@ -66,8 +66,6 @@ export default function Page() {
 		setCart(response.data);
 	};
 
-	if (isLoading)
-		return <LoadingPage />
 	if (order != null && order != undefined)
 		return <PaymentInstructions order={order} />
 	return (

@@ -9,7 +9,7 @@ import {
 	clearAuth,
 	setRefreshTokenClient,
 } from "@/lib/auth";
-import LoadingPage from "./LoadingPage";
+import { useLoading } from "./LoadingContext";
 
 type AuthContextType = {
 	accessToken: string | null;
@@ -22,7 +22,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [accessToken, setAccessTokenLocal] = useState<string | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
+	const { setIsLoading } = useLoading();
 	const router = useRouter();
 	const isLoggedIn = Boolean(accessToken);
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	};
 
 	const logout = useCallback(async () => {
-
+		setIsLoading(true);
 		clearAuth();
 
 		try {
@@ -45,10 +45,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		setAccessToken(null);
 		setRefreshTokenClient(null);
 		router.push("/login");
-	}, [router]);
+		
+		setIsLoading(false);
+	}, [router, setIsLoading]);
 
 	useEffect(() => {
 		(async () => {
+			setIsLoading(true);
 		  try {
 		    const token = await refreshAccessToken();
 		    setAccessToken(token);
@@ -58,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			setIsLoading(false);
 		  }
 		})();
-	}, [])
+	}, [setIsLoading])
 
 
 	useEffect(() => {

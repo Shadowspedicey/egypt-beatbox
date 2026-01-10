@@ -6,11 +6,12 @@ import { isTokenAdmin } from "@/lib/auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingPage from "../_components/LoadingPage";
+import { useLoading } from "../_components/LoadingContext";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
 	const { accessToken } = useAuthContext();
 	const router = useRouter();
-	const [isLoading, setIsLoading] = useState<boolean | null>(null);
+	const { setIsLoading } = useLoading();
 
 	useEffect(() => {
 		(async () => {
@@ -25,10 +26,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 			}
 			setIsLoading(false);
 		})();
-	}, [accessToken, router]);
+	}, [accessToken, router, setIsLoading]);
 
-	if (isLoading)
-		return <LoadingPage />
 	return (
 		<>
 			<Navbar />

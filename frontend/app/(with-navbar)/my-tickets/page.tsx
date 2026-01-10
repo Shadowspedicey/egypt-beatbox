@@ -9,15 +9,15 @@ import { useAuthContext } from "@/app/_components/AuthContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { paths } from "@/app/_components/paths";
-import LoadingPage from "@/app/_components/LoadingPage";
 import api from "@/lib/api";
 import { OrderStatus } from "@/lib/OrderStatus";
+import { useLoading } from "@/app/_components/LoadingContext";
 
 export default function Page() {
 	const { isLoggedIn } = useAuthContext();
 	const router = useRouter();
 	const [orders, setOrders] = useState<IOrder[]>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const { setIsLoading } = useLoading();
 
 	useEffect(() => {
 		if (!isLoggedIn)
@@ -40,8 +40,6 @@ export default function Page() {
 	const nActiveTickets = orders.filter(o => o.status == OrderStatus.Paid).map(o => o.items.length).reduce((a,sum) => a+sum,0);
 	const nTotalTickets = orders.length;
 
-	if (isLoading)
-		return <LoadingPage />
 	return (
 		<div className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-10 py-10">
 			<div className="flex flex-col lg:flex-row gap-8 lg:items-end justify-between mb-12">

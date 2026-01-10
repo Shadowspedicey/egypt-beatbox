@@ -1,6 +1,6 @@
 "use client";
 
-import LoadingPage from "@/app/loading";
+import { useLoading } from "@/app/_components/LoadingContext";
 import { FormEvent, useState } from "react";
 
 export default function SignUpForm() {
@@ -10,7 +10,7 @@ export default function SignUpForm() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 
-	const [isLoading, setIsLoading] = useState(false);
+	const { setIsLoading } = useLoading();
 
 	const onSubmit = async (e: FormEvent) => {
 		e.stopPropagation();
@@ -21,7 +21,6 @@ export default function SignUpForm() {
 		setIsLoading(false);
 	};
 
-	if (isLoading) return <LoadingPage />
 	return (
 		<form className="flex flex-col gap-5" onSubmit={onSubmit}>
 			<div className="flex flex-col sm:flex-row gap-5">
