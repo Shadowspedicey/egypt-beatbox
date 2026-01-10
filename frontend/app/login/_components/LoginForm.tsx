@@ -30,10 +30,10 @@ export default function LoginForm() {
 			setRefreshTokenClient(data.refreshToken);
 			setAccessToken(data.token ?? null);
 			router.push("/");
+			await new Promise(resolve => setTimeout(resolve, 1000));
 		} catch (err) {
 			console.error(err);
 			alert("Login failed");
-			setIsLoading(false);
 		}
 		setIsLoading(false);
 	}

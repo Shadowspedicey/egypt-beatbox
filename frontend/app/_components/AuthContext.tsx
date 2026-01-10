@@ -45,21 +45,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		setAccessToken(null);
 		setRefreshTokenClient(null);
 		router.push("/login");
-		
+		await new Promise(resolve => setTimeout(resolve, 1000));
 		setIsLoading(false);
 	}, [router, setIsLoading]);
 
 	useEffect(() => {
 		(async () => {
 			setIsLoading(true);
-		  try {
-		    const token = await refreshAccessToken();
-		    setAccessToken(token);
-		  } catch {
-		    setAccessToken(null);
-		  } finally {
-			setIsLoading(false);
-		  }
+			try {
+				const token = await refreshAccessToken();
+				setAccessToken(token);
+			} catch {
+				setAccessToken(null);
+			} finally {
+				setIsLoading(false);
+			}
 		})();
 	}, [setIsLoading])
 
@@ -72,9 +72,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		let bc: BroadcastChannel | null = null;
 		try {
 			bc = new BroadcastChannel("auth");
-			bc.onmessage = (e) => {
+			bc.onmessage = async (e) => {
 				if (e.data === "logout") {
 					setAccessToken(null);
+					await new Promise(resolve => setTimeout(resolve, 1000));
 					router.push("/login");
 				}
 			};
@@ -83,8 +84,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return () => bc?.close();
 	}, [logout, router]);
 
-	if (isLoading)
-		return <LoadingPage />
 	return (
 		<AuthContext.Provider value={{ accessToken, setAccessToken, logout, isLoggedIn }}>
 			{children}
