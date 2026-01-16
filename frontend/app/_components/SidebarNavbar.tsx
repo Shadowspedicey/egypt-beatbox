@@ -1,10 +1,20 @@
 import Link from "next/link";
 import { paths } from "./paths";
 import Logo from "./Logo";
+import { getUserNameFromToken } from "@/lib/auth";
+import { useEffect, useState } from "react";
 
-export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, isAdmin, path}: {isMenuOpen: boolean, setIsMenuOpen: (state: boolean) => void, isLoggedIn: boolean, isAdmin: boolean, path: string}) {
+export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, isAdmin, path, accessToken}: {isMenuOpen: boolean, setIsMenuOpen: (state: boolean) => void, isLoggedIn: boolean, isAdmin: boolean, path: string, accessToken: string | null}) {
 	const selectedElementCss = "bg-primary/10 text-primary ring-1 ring-primary/20 transition hover:bg-primary/20";
 	const selectedElementSvgCss = "text-primary";
+	const [name, setName] = useState("");
+
+	useEffect(() => {
+		(async () => {
+			const nameFromToken = await getUserNameFromToken(accessToken);
+			setName(nameFromToken);
+		})();
+	}, [accessToken]);
 
 	return <div className={`fixed right-0 top-0 z-50 h-full w-full max-w-sm bg-background-dark shadow-2xl transition-transform duration-300 ease-out sm:w-100 ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
 		{/* Drawer Header */}
@@ -30,7 +40,7 @@ export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, is
 			{/* User Profile Section */}
 			{ isLoggedIn &&
 				<div className="mb-8 flex items-center gap-4 rounded-2xl bg-primary-darker p-4 shadow-inner">
-					<div
+					{/* <div
 						className="size-12 overflow-hidden rounded-full border-2 border-primary"
 						style={{
 							backgroundImage:
@@ -38,9 +48,9 @@ export default function SidebarNavbar({isMenuOpen, setIsMenuOpen, isLoggedIn, is
 							backgroundSize: "cover",
 							backgroundPosition: "center",
 						}}
-					></div>
+					></div> */}
 					<div className="flex flex-col">
-						<h3 className="text-base font-bold text-white">Ahmed Khaled</h3>
+						<h3 className="text-base font-bold text-white">{name}</h3>
 					</div>
 				</div>
 			}

@@ -98,7 +98,7 @@ export default function Navbar() {
 					onClick={() => setIsMenuOpen(false)}
 				></div>
 			)}
-			<SidebarNavbar isLoggedIn={isLoggedIn} isAdmin={isAdmin} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} path={path}/>
+			<SidebarNavbar accessToken={accessToken} isLoggedIn={isLoggedIn} isAdmin={isAdmin} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} path={path}/>
 		</>
 	);
 }
